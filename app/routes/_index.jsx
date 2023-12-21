@@ -15,7 +15,7 @@ import { Form, useActionData } from '@remix-run/react'
 export const action = async ({ request }) => {
   const body = await request.formData();
   const name = body.get("name");
-
+  //test
   const data = await submitPrompt(name);
 
   return data;
