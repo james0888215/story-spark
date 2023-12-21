@@ -1,4 +1,3 @@
-import "regenerator-runtime";
 import DOMPurify from "dompurify";
 import { PropagateLoader } from "react-spinners";
 import Response from "../components/response";
