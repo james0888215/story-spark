@@ -1,4 +1,3 @@
-import Input from "../components/input";
 import "regenerator-runtime";
 import DOMPurify from "dompurify";
 import { PropagateLoader } from "react-spinners";
@@ -66,8 +65,6 @@ export default function Index() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   // const genericError = "Something went wrong :(<br/>Please try again.";
-  const [query, setQuery] = useState("");
-
 
   useEffect(() => {
     setIsReady(true);
@@ -81,7 +78,7 @@ export default function Index() {
 
 
 
-  async function onSubmit(e) {
+  async function onSubmit() {
     // e.preventDefault();
 
     setResponse("");
@@ -103,68 +100,68 @@ export default function Index() {
   return (
     <div className="app">
       <div className="header">
-      <img src={logo} className="logo" alt="Story Spark" />
+        <img src={logo} className="logo" alt="Story Spark" />
 
       </div>
 
       <div className="main">
-      <div className="input-component">
-      <h2>
-        🦸‍♀️Put your child at the heart of a story🦸
-      </h2>
+        <div className="input-component">
+          <h2>
+            🦸‍♀️Put your child at the heart of a story🦸
+          </h2>
 
-      {/* form */}
-      <Form method="post">
-        <div className="buttons">
+          {/* form */}
+          <Form method="post">
+            <div className="buttons">
 
-          {/* reset button */}
-          {/* <div className="button-container">
+              {/* reset button */}
+              {/* <div className="button-container">
             <button type="button" tabIndex="-1" onClick={reset} disabled={!speechInput}>
               Reset
             </button>
           </div> */}
+            </div>
+
+            <div className="input-container">
+              {/* name input */}
+              <input
+                tabIndex="1"
+                type="text"
+                name="name"
+                className="word-input"
+                value={speechInput}
+                placeholder="Childs Name"
+                onChange={(e) => setSpeechInput(e.target.value)}
+              />
+
+              {/* submit button */}
+              <button
+                type="submit"
+                className="submit-btn"
+                onClick={onSubmit}
+              // disabled={isLoading || !speechInput}
+              >
+                Spark
+              </button>
+
+              {/* error message */}
+              {error && (
+                <div
+                  className="error"
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(error),
+                  }}
+                ></div>
+              )}
+            </div>
+          </Form>
+
+          {/* loader */}
+          {isLoading && <PropagateLoader color="#005277" className="loader" />}
+
+          {/* response */}
+          {response && <Response data={response} query={""} />}
         </div>
-
-        <div className="input-container">
-          {/* name input */}
-          <input
-            tabIndex="1"
-            type="text"
-            name="name"
-            className="word-input"
-            value={speechInput}
-            placeholder="Childs Name"
-            onChange={(e) => setSpeechInput(e.target.value)}
-          />
-
-          {/* submit button */}
-          <button
-            type="submit"
-            className="submit-btn"
-            onClick={onSubmit}
-            // disabled={isLoading || !speechInput}
-          >
-            Spark
-          </button>
-
-          {/* error message */}
-          {error && (
-            <div
-              className="error"
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(error),
-              }}
-            ></div>
-          )}
-        </div>
-        </Form>
-
-      {/* loader */}
-      {isLoading && <PropagateLoader color="#005277" className="loader" />}
-
-      {/* response */}
-      {response && <Response data={response} query={query} />}
-    </div>
       </div>
     </div>
   );
