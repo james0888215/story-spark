@@ -4,17 +4,20 @@ import Response from "../components/response";
 import styles from "~/styles/index.css";
 import inputStyles from "~/styles/input.css";
 import logo from "../../public/storyspark.png"
+import settings from "../../public/settings.svg"
 import { useState, useEffect } from "react";
 import { submitPrompt } from "~/api.server";
 import { Form, useActionData } from '@remix-run/react'
 
 
-
 export const action = async ({ request }) => {
   const body = await request.formData();
+  console.log(body)
   const name = body.get("name");
+  const gender = body.get("gender");
+  const time = body.get("time");
   //test
-  const data = await submitPrompt(name);
+  const data = await submitPrompt(name, gender, time);
 
   return data;
 }
@@ -63,7 +66,6 @@ export default function Index() {
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  // const genericError = "Something went wrong :(<br/>Please try again.";
 
   useEffect(() => {
     setIsReady(true);
@@ -78,19 +80,10 @@ export default function Index() {
 
 
   async function onSubmit() {
-    // e.preventDefault();
-
     setResponse("");
     setIsLoading(true);
     setError("");
   }
-
-  // function reset() {
-  //   setQuery("");
-  //   setResponse("");
-  //   setError("");
-  // }
-
 
   if (!isReady) {
     return null;
@@ -111,6 +104,8 @@ export default function Index() {
 
           {/* form */}
           <Form method="post">
+          {/* <img src={settings} className="settings" alt="settings icon" /> */}
+
             <div className="buttons">
 
               {/* reset button */}
@@ -132,6 +127,17 @@ export default function Index() {
                 placeholder="Childs Name"
                 onChange={(e) => setSpeechInput(e.target.value)}
               />
+
+              <select name="gender" id="gender">
+                <option value="girl">Girl</option>
+                <option value="boy">Boy</option>
+              </select>
+
+              <select name="time" id="time">
+                <option value="1">1 Minute</option>
+                <option value="3">3 Minute</option>
+                <option value="5">5 Minute</option>
+              </select>
 
               {/* submit button */}
               <button
