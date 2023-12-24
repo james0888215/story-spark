@@ -46,7 +46,7 @@ export async function submitPrompt(word = "", gender = "", time = "1") {
   
   // generate prompt for openai with user input
   function generatePrompt(word, gender, time) {
-    return `Tell me a short ${time} minute kids story with a ${gender} named ${word}. ${word} is a ${gender} and the story should be child friendly, be full of adventure and have a happy ending. The story should not describe what ${word} looks like.
+    return `Tell me a short ${time} minute kids story with a ${gender} named ${word}. The story should be child friendly, be full of adventure and have a happy ending. The story should not describe what ${word} looks like.
     
     Return text format paragraphed with html syntax`;
   }
