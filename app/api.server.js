@@ -57,10 +57,9 @@ export async function submitPrompt(word = "", gender = "", time = "1") {
   ]
 
   const random = Math.floor(Math.random() * storyLines.length);
-  
   // generate prompt for openai with user input
   function generatePrompt(word, gender, time) {
-    return `Tell me a short ${time} minute kids story with a ${gender} named ${word}. The story should be child friendly, and have a main storyline focusing on ${random[storyLines]} and have a happy ending. The story should not describe what ${word} looks like.
+    return `Tell me a short ${time} minute kids story with a ${gender} named ${word}. The story should be child friendly, and have a main storyline focusing on ${storyLines[random]} and have a happy ending. The story should not describe what ${word} looks like.
     
     Return text format paragraphed with html syntax`;
   }
