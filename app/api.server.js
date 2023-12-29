@@ -9,7 +9,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
   
-export async function submitPrompt(word = "", gender = "", time = "1") {
+export async function submitPrompt(word = "", gender = "", time = "") {
   console.log(gender, "gender") 
   console.log(time, "time")
   console.log(word, "word")
@@ -28,18 +28,15 @@ export async function submitPrompt(word = "", gender = "", time = "1") {
   
     // call openai api with input
     try {
-      const completion = await openai.completions.create({
-        model: "gpt-3.5-turbo-instruct",
-        prompt : generatePrompt(word, gender, time),
-        temperature: 0.6,
-        max_tokens: 1000,
-        top_p: 1,
-        n: 1,
-        logprobs: null,
-        stop: "{}"
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4",
+        messages : [{role:"user", content:generatePrompt(word, gender, time)}],
+        temperature: 0.8,
+        max_tokens: 3000,
       });
-      return completion.choices[0].text;
+      return completion.choices[0].message.content;
     } catch (error) {
+      console.log(error)
       return Promise.reject({ error });
     }
   }
@@ -48,12 +45,12 @@ export async function submitPrompt(word = "", gender = "", time = "1") {
     "The Lost Toy",
     "The Friendly Monster",
     "The Talking Animal",
-    "The Magical Treehouse",
+    "A Magical Treehouse",
     "The Courageous Robot",
-    "The Time-Traveling Adventure",
-    "The Animal Superhero",
-    "The Wishing Well",
-    "The Traveling Puppet Show",
+    "A Time-Traveling Adventure",
+    "An Animal Superhero",
+    "A Wishing Well",
+    "A Traveling Puppet Show",
     "A lonely cloud finds comfort in the friendship of a group of curious children.",
     "A mischievous squirrel teaches a group of campers a valuable lesson about respecting nature's balance.",
     "A young kid's imagination transforms a ordinary backyard into a fantastical world filled with talking animals and magical creatures.",
@@ -74,11 +71,12 @@ export async function submitPrompt(word = "", gender = "", time = "1") {
     "A group of friends learn the value of forgiveness and understanding when they encounter a misunderstood creature that turns out to be more than they bargained for.",
   ]
 
-  const random = Math.floor(Math.random() * storyLines.length);
   // generate prompt for openai with user input
   function generatePrompt(word, gender, time) {
-    return `Tell me a short ${time} minute reading time kids story starring a ${gender} named ${word} (The story should not describe what ${word} looks like.). The story should be about ${storyLines[random]}. 
+    const random = Math.floor(Math.random() * storyLines.length);
+    console.log(storyLines[random])
+    return `Tell me a kids story starring a ${gender} named ${word} (The story should not describe what ${word} looks like.). The story should be about ${storyLines[random]}. The story should also take around ${time} minutes to read on average.
     
-    Return text format paragraphed with html syntax`;
+    Return html formated pbest for reading`;
   }
   

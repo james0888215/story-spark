@@ -99,7 +99,7 @@ export default function Index() {
       <div className="main">
         <div className="input-component">
           <h2>
-            🦸‍♀️Put your child at the heart of a story🦸
+            Put your child at the heart of a story
           </h2>
 
           {/* form */}
