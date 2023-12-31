@@ -1,4 +1,3 @@
-import DOMPurify from "dompurify";
 import React, { useEffect, useRef } from "react";
 
 export default function Response({ query, data }) {
@@ -9,23 +8,11 @@ export default function Response({ query, data }) {
     responseRef.current.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  // finds user's query in the ai response and bolds it
-  function boldQuery(query, response) {
-    if (!query || !response) {
-      return;
-    }
-
-    const regex = new RegExp(query, "gi");
-    return response.replace(regex, `<b>${query}</b>`);
-  }
-
   return (
-    <div className="response" ref={responseRef}>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: data,
-        }}
-      ></div>
+    <div className="response" ref={responseRef} dangerouslySetInnerHTML={{
+      __html: data,
+    }}>
+
     </div>
   );
 }

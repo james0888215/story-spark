@@ -34,6 +34,7 @@ export async function submitPrompt(word = "", gender = "", time = "") {
         temperature: 0.8,
         max_tokens: 3000,
       });
+      console.log(completion.choices[0].message.content)
       return completion.choices[0].message.content;
     } catch (error) {
       console.log(error)

@@ -162,11 +162,14 @@ export default function Index() {
           </Form>
 
           {/* loader */}
-          {isLoading && <PropagateLoader color="#005277" className="loader" />}
+          {isLoading && <PropagateLoader color="#ffbac3" className="loader" />}
 
           {/* response */}
           {response && <Response data={response} query={""} />}
         </div>
+        {/* <div className="selection-menu" onClick={console.log("CLICK")}>
+            +
+        </div> */}
       </div>
     </div>
   );
